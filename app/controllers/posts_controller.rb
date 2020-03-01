@@ -11,7 +11,7 @@ class PostsController < ApplicationController
         @post = Post.new
     end
     def create
-        @post = Post.new(params.require(:post).permit(:title,:standfirst,:article))
+        @post = Post.new(params.require(:post).permit(:title,:standfirst,:image,:article))
         @post.user_id = current_user.id
         if @post.save
             redirect_to action: "index"
