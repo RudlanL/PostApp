@@ -1,5 +1,14 @@
 class PostsController < ApplicationController
     before_action :authenticate_user!, :only => [:new, :create, :edit,:update, :destroy]
+    before_action :correct_user, only: [:edit, :update, :destroy]
+
+    def correct_user
+        @post = Post.find_by(id: params[:id])
+        unless @post.user == current_user
+            redirect_to action: "index"
+        end
+    end
+
     def index 
         @posts = Post.order(updated_at: :desc)
     end
@@ -18,11 +27,7 @@ class PostsController < ApplicationController
         end
     end
     def edit
-        if current_user.id == params[:user_id]
-            @post = Post.find(params[:id])
-        else
-            redirect_to action: "index"
-        end
+        @post = Post.find(params[:id])
     end
     def update
         if @post.update(params.require(:post).permit(:title,:standfirst,:image,:article))
@@ -30,14 +35,9 @@ class PostsController < ApplicationController
         end
     end
     def destroy
-        if current_user.id == params[:user_id]
-            @user = find(params[:user_id])
-            @user.posts.destroy(Post.find(params[:id]))
-            redirect_to action: "index"
-        else
-            redirect_to action: "index"
-        end
-        
+        @user = User.find(params[:user_id])
+        @user.posts.destroy(Post.find(params[:id]))
+        redirect_to action: "index"
     end
 
 end
