@@ -1,0 +1,20 @@
+<h1>Modifier votre Post</h1>
+<%= form_for @post, url:[@user,@post] do |f| %>
+    <div class="field">
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+    </div>
+    <div class="field">
+        <%= f.label :standfirst %><br>
+        <%= text_area_tag(:standfirst,:standfirst, size: "24x6") %>
+    </div>
+    <div class="field">
+        <%= f.label :image %>   
+        <%= f.file_field :image %>   
+    </div>
+     <div class="field">
+        <%= f.label :article %>   
+        <%= text_area_tag(:article, :article,size: "32x8") %> 
+    </div>
+    <%= f.submit "Modifier" %>
+<% end %>

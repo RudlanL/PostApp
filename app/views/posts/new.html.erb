@@ -1,0 +1,22 @@
+<h1>Nouveau Post</h1>
+<%= form_for @post do |f| %>
+    <div class="field">
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+    </div>
+    <div class="field">
+        <%= f.label :standfirst %><br>
+        <!--<%= text_area_tag(:standfirst,'', size: "24x6") %>-->
+        <%= f.text_area :standfirst,size: "24x6" %>
+    </div>
+    <div class="field">
+        <%= f.label :image %>   
+        <%= f.file_field :image %>   
+    </div>
+    <div class="field">
+        <%= f.label :article %>   
+        <%= f.text_area :article, size: "70x20" %> 
+    </div>
+
+    <%= f.submit "Ajouter" %>
+<% end %>
